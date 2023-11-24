@@ -1,0 +1,239 @@
+<html>
+<head>
+  <title>Manan Clothing Site</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header img {
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    header {
+      background-image: url("bglogo.jpg");
+      background-size: cover;
+      color: white;
+      padding: 1em;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    section {
+      padding: 2em;
+    }
+
+    .search-container {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+
+    #searchInput {
+      padding: 0.5em;
+      width: 300px;
+    }
+
+    .product-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    .product-card {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1em;
+      margin: 1em;
+      width: 400px;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .product-card h3,
+    .product-card p {
+      margin-bottom: 10px;
+    }
+
+    .product-card button {
+      background-color: #333;
+      color: white;
+      padding: 0.5em;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 1em;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+    .product-card h3,
+    .product-card p {
+      margin-bottom: 10px;
+      text-align: center; 
+    }
+
+    .product-card button {
+      background-color: #333;
+      color: white;
+      padding: 0.5em;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    /* Responsive Styling */
+    @media only screen and (max-width: 600px) {
+      .product-card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="logo.png" alt="Logo">
+    <span>Men's Plain T-Shirts</span>
+  </header>
+
+  <section>
+    <div class="search-container">
+      <label for="searchInput">Search: </label>
+      <input type="text" id="searchInput" oninput="filterProducts()">
+    </div>
+
+    <div class="product-container" id="productContainer">
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2023 Manan Clothing Site. All rights reserved.<br/>
+    Visit Us:
+    <a href="https://twitter.com/home" target="_blank"><img src="t.webp" width="30px"></a>
+  </footer>
+
+  <script>
+    const clothes = [
+      {
+        id: 1,
+        name: 'Red Coloured',
+        price: '399 ',
+        imageUrl: 'https://csmwoo.com/wp-content/uploads/2021/07/t-shirt-red-1024x1024.png'
+      },
+      {
+        id: 2,
+        name: 'Blue Coloured',
+        price: '299',
+        imageUrl: 'https://th.bing.com/th/id/OIP.M5arUJ116EN0933tACDFlgHaHa?w=206&h=206&c=7&r=0&o=5&dpr=1.3&pid=1.7'
+      },
+      {
+        id: 3,
+        name: 'White Coloured',
+        price: '399',
+        imageUrl: 'https://th.bing.com/th/id/OIP.ACCKx8mhej51-Mm-rnWncAHaHa?w=206&h=206&c=7&r=0&o=5&dpr=1.3&pid=1.7'
+      },
+      {
+        id: 4,
+        name: 'Grey Coloured',
+        price: '499',
+        imageUrl: 'https://th.bing.com/th/id/OIP.1AVeywfxGsggxTkiFnhuVgHaHH?w=205&h=197&c=7&r=0&o=5&dpr=1.3&pid=1.7'
+      },
+      {
+        id: 5,
+        name: 'Green Coloured',
+        price: '199',
+        imageUrl: 'https://th.bing.com/th/id/OIP.j1xqRW28oAgZ6VzcIIXd_gHaHV?w=158&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7'
+      },
+      {
+        id: 6,
+        name: 'Orange Coloured',
+        price: '299',
+        imageUrl: 'https://th.bing.com/th/id/OIP.xU1B1N4yNIitYKdy61_5RgAAAA?w=183&h=198&c=7&r=0&o=5&dpr=1.3&pid=1.7'
+      },
+      {
+        id: 7,
+        name: 'Black Coloured',
+        price: '399',
+        imageUrl: 'https://th.bing.com/th/id/OIP.GTVw_x_6VZovTddD2HXdcQHaHa?w=139&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7'
+      },
+      {
+        id: 8,
+        name: 'Brown Coloured',
+        price: '499',
+        imageUrl: 'https://th.bing.com/th/id/OIP.kJqALBRv9k6HH2kmbD3ZfgHaHa?w=168&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7'
+      },
+      {
+        id: 9,
+        name: 'Sky Blue Coloured',
+        price: '499',
+        imageUrl: 'https://th.bing.com/th/id/OIP.SZPK8Yxm6ZdnyC0m-4eZ0AHaHa?w=190&h=190&c=7&r=0&o=5&dpr=1.3&pid=1.7'
+      },
+    ];
+
+    function renderClothes(clothesToRender) {
+      const productContainer = document.getElementById('productContainer');
+      productContainer.innerHTML = '';
+
+      clothesToRender.forEach(clothing => {
+        const productCard = document.createElement('div');
+        productCard.classList.add('product-card');
+
+        const productImage = document.createElement('img');
+        productImage.classList.add('product-image');
+        productImage.src = clothing.imageUrl;
+        productImage.alt = clothing.name;
+
+        const productName = document.createElement('h3');
+        productName.textContent = clothing.name;
+
+        const productPrice = document.createElement('p');
+        productPrice.textContent = `₹${clothing.price}`;
+
+        const addToCartButton = document.createElement('button');
+        addToCartButton.textContent = 'Add to Cart';
+
+        productCard.appendChild(productImage);
+        productCard.appendChild(productName);
+        productCard.appendChild(productPrice);
+        productCard.appendChild(addToCartButton);
+
+        productContainer.appendChild(productCard);
+      });
+    }
+    function filterProducts() {
+      const searchInput = document.getElementById('searchInput');
+      const searchTerm = searchInput.value.toLowerCase();
+
+      const filteredClothes = clothes.filter(clothing =>
+        clothing.name.toLowerCase().includes(searchTerm)
+      );
+
+      renderClothes(filteredClothes);
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      renderClothes(clothes);
+    });
+  </script>
+</body>
+
+</html>
